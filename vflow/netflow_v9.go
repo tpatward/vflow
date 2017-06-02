@@ -108,7 +108,7 @@ func (i *NetflowV9) run() {
 		}()
 	}
 
-	logger.Printf("netflow v9 is running (workers#: %d)", i.workers)
+	logger.Printf("netflow v9 is running (addr: %s, port#: %d, workers#: %d)", i.addr, i.port, i.workers)
 
 	mCacheNF9 = netflow9.GetCache(opts.NetflowV9TplCacheFile)
 

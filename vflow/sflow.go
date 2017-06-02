@@ -109,7 +109,7 @@ func (s *SFlow) run() {
 		}()
 	}
 
-	logger.Printf("sFlow is running (workers#: %d)", s.workers)
+	logger.Printf("sFlow is running (addr: %s, port#: %d, workers#: %d)", s.addr, s.port, s.workers)
 
 	go func() {
 		p := producer.NewProducer(opts.MQName)
