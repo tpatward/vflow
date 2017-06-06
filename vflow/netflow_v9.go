@@ -91,9 +91,12 @@ func (i *NetflowV9) run() {
 		return
 	}
 
+	// convert address + port into address:port combination
 	hostPort := net.JoinHostPort(i.addr, strconv.Itoa(i.port))
+	// resolve the udpPort address for the given host/port
 	udpAddr, _ := net.ResolveUDPAddr("udp", hostPort)
 
+	// open the udp port to listnet for netflow_v9
 	conn, err := net.ListenUDP("udp", udpAddr)
 	if err != nil {
 		logger.Fatal(err)
@@ -110,9 +113,11 @@ func (i *NetflowV9) run() {
 
 	logger.Printf("netflow v9 is running (addr: %s, port#: %d, workers#: %d)", i.addr, i.port, i.workers)
 
+	// get the cache for netflow messaging queue
 	mCacheNF9 = netflow9.GetCache(opts.NetflowV9TplCacheFile)
 
 	go func() {
+		// create a producer client to the msg queue
 		p := producer.NewProducer(opts.MQName)
 
 		p.MQConfigFile = opts.MQConfigFile
@@ -121,6 +126,7 @@ func (i *NetflowV9) run() {
 		p.Chan = netflowV9MQCh
 		p.Topic = opts.NetflowV9Topic
 
+		// start the producer to run
 		if err := p.Run(); err != nil {
 			logger.Fatal(err)
 		}

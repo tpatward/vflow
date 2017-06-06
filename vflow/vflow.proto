@@ -1,0 +1,29 @@
+syntax = "proto3";
+package main;
+
+message FlowMesssssag {
+	message Header {
+		int32 Version
+		int32 Count
+		int32 SysUpTime
+		int32 UNIXSecs
+		int32 SeqNum
+		int32 SrcId 
+	}	
+	repeated Header headers = 1
+
+	message TemplateFieldSpecifier {
+		int32 ElementID
+		int32 Length
+	}
+	message TemplateRecord {
+		int32 TemplateID
+		int32 FieldCount
+		repeated optional TemplateFieldSpecifier FieldSpecifiers
+		optional int32 ScopeFieldCount
+		repeated optional TemplateFieldSpecifier ScopeFieldSpecifiers
+	}
+	message OptionsRecord {
+	}
+	message DataRecord {
+	}
