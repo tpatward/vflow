@@ -31,12 +31,12 @@ message FlowRecord {
 }
 
 message Header {
-	int32 Version
-	int32 Count
-	int32 SysUpTime
-	int32 UNIXSecs
-	int32 SeqNum
-	int32 SrcId 
+	optional uint32 Version = 1;
+	optional uint32 Count = 2;
+	optional uint32 SysUpTime = 3;
+	optional uint32 UNIXSecs = 4;
+	optional uint32 SeqNum = 5;
+	optional uint32 SrcId = 6;
 }	
 
 // A flow message is defined as a header followed by a bunch of flow records
