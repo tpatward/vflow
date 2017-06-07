@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 package FlowProto;
 
 option go_package = "./vflow";
@@ -43,6 +43,6 @@ message Header {
 message FlowMessage {
 	repeated Header headers = 1;
 
-	optional repeated FlowRecord flow_records = 2;
+	repeated FlowRecord flow_records = 2;
 	
 }
