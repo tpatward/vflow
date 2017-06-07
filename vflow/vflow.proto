@@ -41,7 +41,7 @@ message Header {
 
 // A flow message is defined as a header followed by a bunch of flow records
 message FlowMessage {
-	repeated Header headers = 1;
+	optional Header headers = 1;
 
 	repeated FlowRecord flow_records = 2;
 	
