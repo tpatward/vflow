@@ -215,12 +215,21 @@ LOOP:
 		atomic.AddUint64(&i.stats.DecodedCount, 1)
 
 		if decodedMsg.DataSets != nil {
-			b, err = decodedMsg.JSONMarshal(buf)
-			if err != nil {
-				logger.Println(err)
-				continue
+			if opts.JSONFormatDump {
+				b, err = decodedMsg.JSONMarshal(buf)
+				if err != nil {
+					logger.Println(err)
+					continue
+				}
+			} else {
+			    logger.Println("Converting into protobuf format")
+				b,err = decodeMsg.ProtoBufMarshal(buf)
+				if err != nil {
+					logger.Println(err)
+					continue
+				}
 			}
-
+			
 			select {
 			case netflowV9MQCh <- b:
 			default:

@@ -1,8 +1,6 @@
 syntax = "proto2";
 package FlowProto;
 
-option go_package = "./vflow";
-
 message FlowRecord {
 	enum KeyType {
 		IPv4 = 1;
@@ -15,7 +13,7 @@ message FlowRecord {
 	optional uint64 byte_count = 4;
 	optional uint32 flow_id = 5;
 	
-	optional KeyType key = 6;
+	optional KeyType key_type = 6;
 	optional bytes src_address = 7;
 	optional uint32 src_prefix = 8;
 	optional bytes dst_address = 9;
@@ -31,18 +29,18 @@ message FlowRecord {
 }
 
 message Header {
-	optional uint32 Version = 1;
-	optional uint32 Count = 2;
-	optional uint32 SysUpTime = 3;
-	optional uint32 UNIXSecs = 4;
-	optional uint32 SeqNum = 5;
-	optional uint32 SrcId = 6;
+	optional uint32 version = 1;
+	optional uint32 count = 2;
+	optional uint32 system_up_time = 3;
+	optional uint32 timestamp = 4;
+	optional uint32 sequence_number = 5;
+	optional uint32 src_id = 6;
 }	
 
 // A flow message is defined as a header followed by a bunch of flow records
 message FlowMessage {
-	optional Header headers = 1;
-
-	repeated FlowRecord flow_records = 2;
+	required string agent_id = 1;
+	optional Header headers = 2;
+	repeated FlowRecord flow_records = 3;
 	
 }
